@@ -18,7 +18,6 @@ content {
     float: left;
     min-height: 500px;
     border-left: 1px solid #00ff21;
-    border-right: 1px solid #00ff21;
     padding: 10px 10px 10px 10px;
 }
 
@@ -33,4 +32,13 @@ footer {
     max-width: 1000px;
     max-height: 180px;
     padding-left: 500px;
+}
+
+.nav_level1 {
+    font-size: 1.1em;
+}
+
+.nav_level2 {
+    font-size: 0.9em;
+    padding-left: 10px;
 }

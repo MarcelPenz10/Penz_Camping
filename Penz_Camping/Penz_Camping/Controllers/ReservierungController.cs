@@ -6,21 +6,18 @@ using System.Web.Mvc;
 
 namespace Penz_Camping.Controllers
 {
-    public class HomeController : Controller
+    public class ReservierungController : Controller
     {
+        // GET: Reservierung
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Anfrage()
         {
             return View();
         }
 
-        public ActionResult Impressum()
-        {          
-            return View();
-        }
     }
 }
