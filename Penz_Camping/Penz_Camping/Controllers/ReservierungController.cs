@@ -8,7 +8,7 @@ namespace Penz_Camping.Controllers
 {
     public class ReservierungController : Controller
     {
-        // GET: Reservierung
+       
         public ActionResult Index()
         {
             return View();

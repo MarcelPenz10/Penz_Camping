@@ -8,12 +8,14 @@ namespace Penz_Camping.Controllers
 {
     public class CampingplatzController : Controller
     {
-        // GET: Campingplatz
+
+        // GET: /Campingplatz/
         public ActionResult Index()
         {
             return View();
         }
 
+        // GET: /Campingplatz/Infos/
         public ActionResult Infos()
         {
             return View();
