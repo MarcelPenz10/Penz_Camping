@@ -29,16 +29,29 @@ footer {
 }
 
 .Logo {
-    max-width: 1000px;
-    max-height: 180px;
-    padding-left: 10px;
+    max-width: 300px;
+    max-height: 150px;
+    float: left;
+}
+
+.Logo1 {
+    max-width: 300px;
+    max-height: 150px;
 }
 
 .nav_level1 {
     font-size: 1.1em;
+    
 }
 
-.nav_level2 {
+.nav_level2 :hover{
     font-size: 0.9em;
     padding-left: 10px;
+}
+
+.tableK {
+    padding: 20px;
+    width: 100%;
+    border: 1px solid black;
+    text-align: left;
 }
