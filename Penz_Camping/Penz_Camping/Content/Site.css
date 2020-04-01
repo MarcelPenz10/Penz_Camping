@@ -29,14 +29,16 @@ footer {
 }
 
 .Logo {
-    max-width: 300px;
-    max-height: 150px;
+    max-width: 700px;
+    max-height: 175px;
     float: left;
 }
 
 .Logo1 {
-    max-width: 300px;
-    max-height: 150px;
+    max-width: 600px;
+    max-height: 300px;
+    border-radius: 4px;
+    padding: 10px;
 }
 
 .nav_level1 {
