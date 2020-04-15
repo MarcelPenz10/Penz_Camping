@@ -15,17 +15,19 @@ namespace Penz_Camping.Models
         public DateTime? ErsterTagBuchung { get; set; }
         public DateTime? LetzterTagBuchung { get; set; }
         public Paket Paket { get; set; }
-       
-        public Reservierungsanfrage() : this("", "", 0, DateTime.MinValue, DateTime.MaxValue, Paket.billig) { }
+        public string Password { get; set; }
 
-        public Reservierungsanfrage(string vorname, string nachname, int kreditkartennummer, DateTime? ersterTagBuchung, DateTime? letzterTagBuchung, Paket paket)
+        public Reservierungsanfrage() : this("", "", 0, DateTime.MinValue, DateTime.MaxValue, Paket.billig,"") { }
+
+        public Reservierungsanfrage(string vorname, string nachname, int kreditkartennummer, DateTime? ersterTagBuchung, DateTime? letzterTagBuchung, Paket paket, string password)
         {
             this.Vorname = vorname;
             this.Nachname = nachname;
             this.Kreditkartennummer = kreditkartennummer;
             this.ErsterTagBuchung = ersterTagBuchung;
             this.LetzterTagBuchung = letzterTagBuchung;
-            this.Paket = paket;        
+            this.Paket = paket;
+            this.Password = password;
         }
     }
 }

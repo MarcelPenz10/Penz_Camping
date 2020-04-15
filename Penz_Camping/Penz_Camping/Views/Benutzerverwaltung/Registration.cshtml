@@ -1,0 +1,73 @@
+﻿@model Penz_Camping.Models.User
+@{
+    ViewBag.Title = "Registration";
+}
+
+<h2>Registration</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.ValidationSummary()
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <td colspan="2">Registrierungsdaten</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.LabelFor(u => u.Vorname, "Vorname: ")</td>
+                <td>@Html.TextBoxFor(u => u.Vorname)</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(u => u.Nachname, "Nachname:* ")</td>
+                <td>
+                    @Html.TextBoxFor(u => u.Nachname, new { required = "required" })
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(u => u.Gender, "Geschlecht: ")</td>
+                <td>@Html.EnumDropDownListFor(u => u.Gender, new { required = "required" })</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(u => u.Birthdate, "Geburtsdatum: ")</td>
+                <td>@Html.TextBoxFor(u => u.Birthdate, new { type = "date" })</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(u => u.Username, "Benutzername:* ")</td>
+                <td>@Html.TextBoxFor(u => u.Username, new { required = "required" })</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(u => u.Password, "Passwort:* ")</td>
+                <td>@Html.PasswordFor(u => u.Password, new { required = "required" })</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(u => u.PasswordAdmin, "Passwort für Admin: ")</td>
+                <td>@Html.TextBoxFor(u => u.PasswordAdmin)</td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="text-align:center">
+                    <input type="submit" value="absenden" id="btnSubmit" />
+                    <input type="reset" value="abbrechen" id="btnReset" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">sind Pflichtfelder</td>
+            </tr>
+        </tfoot>
+
+
+    </table>
+
+}

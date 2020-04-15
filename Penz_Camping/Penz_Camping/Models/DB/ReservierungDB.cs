@@ -42,7 +42,7 @@ namespace Penz_Camping.Models.DB
             }
 
             DbCommand cmdInsert = this._connection.CreateCommand();
-            cmdInsert.CommandText = "Insert Into Reservierungsanfragen Values(@vorname, @nachname, @kreditkartennummer, @ersterTagBuchung, @letzterTagBuchung, @paket)";
+            cmdInsert.CommandText = "Insert Into Anfragen Values(@vorname, @nachname, @kreditkartennummer, @ersterTagBuchung, @letzterTagBuchung, @paket, sha2(@password, 256))";
 
             DbParameter paramVN = cmdInsert.CreateParameter();
             paramVN.ParameterName = "vorname";
@@ -74,15 +74,23 @@ namespace Penz_Camping.Models.DB
             paramKNr.Value = reservierungsanfrage.Kreditkartennummer;
             paramKNr.DbType = DbType.Int32;
 
+            DbParameter paramPwd = cmdInsert.CreateParameter();
+            paramPwd.ParameterName = "password";
+            paramPwd.Value = reservierungsanfrage.Password;
+            paramPwd.DbType = DbType.String;
+
             cmdInsert.Parameters.Add(paramVN);
             cmdInsert.Parameters.Add(paramNN);
             cmdInsert.Parameters.Add(paramPaket);
             cmdInsert.Parameters.Add(paramETB);
             cmdInsert.Parameters.Add(paramLTB);
             cmdInsert.Parameters.Add(paramKNr);
+            cmdInsert.Parameters.Add(paramPwd);
 
             return cmdInsert.ExecuteNonQuery() == 1;
 
         }
+
+     
     }
 }

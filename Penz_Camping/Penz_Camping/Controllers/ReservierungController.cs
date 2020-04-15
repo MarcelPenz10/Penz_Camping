@@ -59,6 +59,8 @@ namespace Penz_Camping.Controllers
             }
         }
 
+        
+
 
 
 
@@ -88,6 +90,11 @@ namespace Penz_Camping.Controllers
             if (reservierungsanfrage.LetzterTagBuchung == null)
             {
                 ModelState.AddModelError("LetzterTagBuchung", "Letzter Tag Buchung ist ein Pflichtfeld");
+            }
+
+            if(reservierungsanfrage.Password == null)
+            {
+                ModelState.AddModelError("Password", "Password ist ein Pflichtfeld");
             }
         }
     }

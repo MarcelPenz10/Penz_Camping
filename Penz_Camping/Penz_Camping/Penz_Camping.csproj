@@ -147,16 +147,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BenutzerverwaltungController.cs" />
     <Compile Include="Controllers\CampingplatzController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReservierungController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DB\IRegistrierung.cs" />
     <Compile Include="Models\DB\IReservierung.cs" />
+    <Compile Include="Models\DB\RegistrationDB.cs" />
     <Compile Include="Models\DB\ReservierungDB.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Reservierungsanfrage.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +174,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\DB\camping.sql" />
+    <Content Include="Models\DB\registrierung.sql" />
     <Content Include="Models\Fotos\Logo.jpeg" />
     <Content Include="Models\Fotos\Logo1.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -206,6 +212,9 @@
     <Content Include="Views\Campingplatz\Preise.cshtml" />
     <Content Include="Views\Campingplatz\Bilder.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\Login.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\Index.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
