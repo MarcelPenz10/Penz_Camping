@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace Penz_Camping.Models.DB
 {
-    interface IReservierung
+    interface IReservierung : IDbBase
     {
-        void Open();
-        void Close();
-
+        
         bool Insert(Reservierungsanfrage reservierungsanfrage);
-      
-
-
+     
     }
 }

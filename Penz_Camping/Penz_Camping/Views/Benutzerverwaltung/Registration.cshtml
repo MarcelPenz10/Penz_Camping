@@ -50,8 +50,8 @@
             </tr>
 
             <tr>
-                <td>@Html.LabelFor(u => u.PasswordAdmin, "Passwort für Admin: ")</td>
-                <td>@Html.TextBoxFor(u => u.PasswordAdmin)</td>
+                <td>@Html.LabelFor(u => u.Rolle, "Ihre Rolle:* ")</td>
+                <td>@Html.EnumDropDownListFor(u => u.Rolle, new { required = "required" })</td>
             </tr>
 
             <tr>

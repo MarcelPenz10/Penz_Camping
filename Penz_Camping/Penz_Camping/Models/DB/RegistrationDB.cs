@@ -9,32 +9,9 @@ using System.Data.Common;
 
 namespace Penz_Camping.Models.DB
 {
-    public class RegistrationDB :IRegistrierung
+    public class RegistrationDB :DbBase ,IRegistrierung
     {
-        private string _connectionString = "Server=localhost;Database=db_registrierung;Uid=root;Pwd=Messi10neymar11";
-        private MySqlConnection _connection;
-
-
-        public void Open()
-        {
-            if (this._connection == null)
-            {
-                this._connection = new MySqlConnection(this._connectionString);
-            }
-            if (this._connection.State != ConnectionState.Open)
-            {
-                this._connection.Open();
-            }
-        }
-
-        public void Close()
-        {
-            if ((this._connection != null) && (this._connection.State != ConnectionState.Closed))
-            {
-                this._connection.Close();
-            }
-        }
-
+       
         public bool Insert(User user)
         {
             if (user == null)
@@ -44,7 +21,7 @@ namespace Penz_Camping.Models.DB
 
             DbCommand cmdInsert = this._connection.CreateCommand();
 
-            cmdInsert.CommandText = "Insert Into users Values(null, @vorname, @nachname, @gender, @birthdate, @username, sha2(@password, 512), sha2(@passwordAdmin, 512))";
+            cmdInsert.CommandText = "Insert Into users Values(null, @vorname, @nachname, @gender, @birthdate, @username, sha2(@password, 512), @rolle)";
 
             DbParameter paramVN = cmdInsert.CreateParameter();
             paramVN.ParameterName = "vorname";
@@ -76,10 +53,10 @@ namespace Penz_Camping.Models.DB
             paramPwd.Value = user.Password;
             paramPwd.DbType = DbType.String;
 
-            DbParameter paramPwdA = cmdInsert.CreateParameter();
-            paramPwdA.ParameterName = "passwordAdmin";
-            paramPwdA.Value = user.PasswordAdmin;
-            paramPwdA.DbType = DbType.String;
+            DbParameter paramRolle = cmdInsert.CreateParameter();
+            paramRolle.ParameterName = "rolle";
+            paramRolle.Value = user.Rolle;
+            paramRolle.DbType = DbType.Int32;
 
             cmdInsert.Parameters.Add(paramVN);
             cmdInsert.Parameters.Add(paramNN);
@@ -87,7 +64,7 @@ namespace Penz_Camping.Models.DB
             cmdInsert.Parameters.Add(paramBDate);
             cmdInsert.Parameters.Add(paramUsername);
             cmdInsert.Parameters.Add(paramPwd);
-            cmdInsert.Parameters.Add(paramPwdA);
+            cmdInsert.Parameters.Add(paramRolle);
 
             return cmdInsert.ExecuteNonQuery() == 1;
 
@@ -99,7 +76,7 @@ namespace Penz_Camping.Models.DB
         public User Login(UserLogin user)
         {
             DbCommand cmdLogin = this._connection.CreateCommand();
-            cmdLogin.CommandText = "SELECT * FROM users WHERE username=@username AND password=sha2(@password, 512) OR passwordAdmin=sha2(@passwordAdmin,512)";
+            cmdLogin.CommandText = "SELECT * FROM users WHERE username=@username AND password=sha2(@password, 512) AND rolle=@rolle";
 
             DbParameter paramUsername = cmdLogin.CreateParameter();
             paramUsername.ParameterName = "username";
@@ -111,14 +88,14 @@ namespace Penz_Camping.Models.DB
             paramPwd.Value = user.Password;
             paramPwd.DbType = DbType.String;
 
-            DbParameter paramPwdA = cmdLogin.CreateParameter();
-            paramPwdA.ParameterName = "passwordAdmin";
-            paramPwdA.Value = user.PasswordAdmin;
-            paramPwdA.DbType = DbType.String;
+            DbParameter paramRolle = cmdLogin.CreateParameter();
+            paramRolle.ParameterName = "rolle";
+            paramRolle.Value = user.Rolle;
+            paramRolle.DbType = DbType.Int32;
 
             cmdLogin.Parameters.Add(paramUsername);
             cmdLogin.Parameters.Add(paramPwd);
-            cmdLogin.Parameters.Add(paramPwdA);
+            cmdLogin.Parameters.Add(paramRolle);
 
             using (DbDataReader reader = cmdLogin.ExecuteReader())
             {
@@ -136,7 +113,7 @@ namespace Penz_Camping.Models.DB
                     Birthdate = Convert.ToDateTime(reader["birthdate"]),
                     Username = Convert.ToString(reader["username"]),
                     Password = "",
-                    PasswordAdmin = ""
+                    Rolle = (Rolle)Convert.ToInt32(reader["rolle"])
                 };
             }
         }

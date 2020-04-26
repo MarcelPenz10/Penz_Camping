@@ -6,6 +6,7 @@ using System.Web;
 namespace Penz_Camping.Models
 {
     public enum Gender { male, female, notspecified }
+    public enum Rolle { admin, registrierterBenutzer, User, notSpecified}
 
     public class User
     {
@@ -16,12 +17,12 @@ namespace Penz_Camping.Models
         public DateTime? Birthdate { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string PasswordAdmin { get; set; }
+        public Rolle Rolle { get; set; }
   
 
-        public User() : this(0, "", "", Gender.notspecified, DateTime.MinValue, "", "", "") { }
+        public User() : this(0, "", "", Gender.notspecified, DateTime.MinValue, "", "", Rolle.notSpecified) { }
 
-        public User(int id, string firstname, string lastname, Gender gender, DateTime? birthdate, string username, string password, string passwordAdmin)
+        public User(int id, string firstname, string lastname, Gender gender, DateTime? birthdate, string username, string password, Rolle rolle)
         {
             this.ID = id;
             this.Vorname = firstname;
@@ -30,7 +31,7 @@ namespace Penz_Camping.Models
             this.Birthdate = birthdate;
             this.Username = username;
             this.Password = password;
-            this.PasswordAdmin = passwordAdmin;
+            this.Rolle = rolle;
         }
 
 

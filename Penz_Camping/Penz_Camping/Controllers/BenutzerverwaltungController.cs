@@ -115,6 +115,11 @@ namespace Penz_Camping.Controllers
             {
                 ModelState.AddModelError("Password", "Password ist ein Pflichtfeld");
             }
+
+            if(user.Rolle == Rolle.notSpecified)
+            {
+                ModelState.AddModelError("Rolle", "Bitte wählen Sie ihre Rolle aus");
+            }
         }
 
     }

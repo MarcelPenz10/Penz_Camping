@@ -9,12 +9,13 @@ create table users(
    birthdate date null,
    username varchar(100) not null unique,
    password varchar(128) not null,
-   passwordAdmin varchar(128) null,
+   rolle int not null,
    
    constraint id_PK primary key(id)
 )engine=InnoDB;
 
-Insert Into users Values(null, "Marcel", "Penz", 0, "2002-01-25", "user", sha2("pwd", 512), sha2("pwdA", 512));
+Insert Into users Values(null, "Marcel", "Penz", 0, "2002-01-25", "user", sha2("pwd", 512), 3);
+Insert Into users Values(null, "Admin", "admin", 0, "2002-05-02", "adminuser", sha2("admin", 512), 3);
 
 select * from users;
 

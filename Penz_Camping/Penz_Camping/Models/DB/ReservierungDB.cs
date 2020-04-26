@@ -9,30 +9,11 @@ using System.Data.Common;
 
 namespace Penz_Camping.Models.DB
 {
-    public class ReservierungDB :IReservierung
+    public class ReservierungDB :DbBase ,IReservierung
     {
-        private string _connectionString = "Server=localhost;Database=db_camping;Uid=root;Pwd=Messi10neymar11";
-        private MySqlConnection _connection;
+        
 
-        public void Open()
-        {
-            if (this._connection == null)
-            {
-                this._connection = new MySqlConnection(this._connectionString);
-            }
-            if (this._connection.State != ConnectionState.Open)
-            {
-                this._connection.Open();
-            }
-        }
 
-        public void Close()
-        {
-            if ((this._connection != null) && (this._connection.State != ConnectionState.Closed))
-            {
-                this._connection.Close();
-            }
-        }
 
         public bool Insert(Reservierungsanfrage reservierungsanfrage)
         {

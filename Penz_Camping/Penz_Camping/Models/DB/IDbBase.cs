@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Penz_Camping.Models.DB
 {
-    interface IRegistrierung : IDbBase
+    interface IDbBase
     {
-        bool Insert(User user);
-        User Login(UserLogin user);
+        
+        void Open();
+        void Close();
+
     }
 }
