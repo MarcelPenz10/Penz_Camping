@@ -11,7 +11,7 @@ namespace Penz_Camping.Models.DB
 {
     public class DbBase : IDbBase
     {
-        public string _connectionString = "Server=localhost;Database=db_registrierung;Uid=root;Pwd=Messi10neymar11";
+        public string _connectionString = "Server=localhost;Database=db_registrierung;Uid=root;Pwd=Messi10neymar11";      
         public MySqlConnection _connection;
 
         public void Open()

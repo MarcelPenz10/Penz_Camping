@@ -1,0 +1,67 @@
+﻿@model List<Penz_Camping.Models.Reservierungsanfrage>
+
+
+@{
+    ViewBag.Title = "Reservierungsanfragen";
+}
+
+<h2>Reservierungsanfragen</h2>
+
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+    table {
+        width: 100%;
+    }
+</style>
+
+@if (Model != null)
+{
+
+    <table class="reservierungsanfragen">
+        <thead>
+            <tr>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Kreditkartennummer</th>
+                <th>ErsterTagBuchung</th>
+                <th>LetzterTagBuchung</th>
+                <th>Paket</th>  
+                <th>Bearbeitet</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var r in Model)
+            {
+            <tr>
+                <td>@r.Vorname</td>
+                <td>@r.Nachname</td>
+                <td>@r.Kreditkartennummer</td>
+                <td>@r.ErsterTagBuchung</td>
+                <td>@r.LetzterTagBuchung</td>
+                <td>@r.Paket</td>
+                @if (r.Bearbeitet)
+                {
+                    <td>bearbeitet</td>
+                    <td></td>
+                }
+                else
+                {
+                    <td>nicht bearbeitet</td>
+                    <td><a class="uk-button uk-button-default" type="button" href="/Benutzerverwaltung/AnfrageBestätigen?knr=@r.Kreditkartennummer">Bestätigen</a></td>
+                    <td><a class="uk-button uk-button-default" type="button" href="/Benutzerverwaltung/AnfrageLöschen?knr=@r.Kreditkartennummer">Löschen</a></td>
+                }
+
+            </tr>
+            }
+        </tbody>
+       
+    </table>
+}
+else
+{
+    <p>Es sind keine neuen Reservierungen vorhanden</p>
+}

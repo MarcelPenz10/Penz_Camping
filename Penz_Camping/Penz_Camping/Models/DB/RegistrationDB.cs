@@ -21,7 +21,7 @@ namespace Penz_Camping.Models.DB
 
             DbCommand cmdInsert = this._connection.CreateCommand();
 
-            cmdInsert.CommandText = "Insert Into users Values(null, @vorname, @nachname, @gender, @birthdate, @username, sha2(@password, 512), @rolle)";
+            cmdInsert.CommandText = "Insert Into userss Values(null, @vorname, @nachname, @gender, @birthdate, @username, sha2(@password, 512), @rolle)";
 
             DbParameter paramVN = cmdInsert.CreateParameter();
             paramVN.ParameterName = "vorname";
@@ -76,7 +76,7 @@ namespace Penz_Camping.Models.DB
         public User Login(UserLogin user)
         {
             DbCommand cmdLogin = this._connection.CreateCommand();
-            cmdLogin.CommandText = "SELECT * FROM users WHERE username=@username AND password=sha2(@password, 512) AND rolle=@rolle";
+            cmdLogin.CommandText = "SELECT * FROM userss WHERE username=@username AND password=sha2(@password, 512) AND rolle=@rolle";
 
             DbParameter paramUsername = cmdLogin.CreateParameter();
             paramUsername.ParameterName = "username";

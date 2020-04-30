@@ -7,10 +7,12 @@ using System.Web.Mvc;
 using Penz_Camping.Models;
 using Penz_Camping.Models.DB;
 
+
 namespace Penz_Camping.Controllers
 {
     public class BenutzerverwaltungController : Controller
     {
+        private IReservierung res;
         private IRegistrierung reg;
 
         // GET: Benutzerverwaltung
@@ -18,6 +20,71 @@ namespace Penz_Camping.Controllers
         {
             return View();
         }
+
+
+        public ActionResult Reservierungsanfragen()
+        {
+            List<Reservierungsanfrage> reservierungsanfragen;
+
+            res = new ReservierungDB();
+            res.Open();
+
+            reservierungsanfragen = res.GetAllRes();
+            res.Close();
+
+            List<Reservierungsanfrage> neueRes = new List<Reservierungsanfrage>();
+
+            foreach (var r in reservierungsanfragen)
+            {
+                if (!r.Bearbeitet)
+                {
+                    neueRes.Add(r);
+                }
+            }
+
+            return View(neueRes);
+        }
+
+       public ActionResult AnfrageBestätigen(int knr)
+        {
+            if (Session["loggedInUser"] == null)
+            {
+                return RedirectToAction("login", "benutzerverwaltung");
+            }
+
+            if (!Convert.ToBoolean(Session["isAdmin"]))
+            {
+                return RedirectToAction("index", "home");
+            }
+
+            res = new ReservierungDB();
+
+            res.Open();
+            res.UpdateAnfrageStatus(knr, true);
+            res.Close();
+            return View();
+        }
+
+        public ActionResult AnfrageLöschen(int knr)
+        {
+            if (Session["loggedInUser"] == null)
+            {
+                return RedirectToAction("login", "benutzerverwaltung");
+            }
+
+            if (!Convert.ToBoolean(Session["isAdmin"]))
+            {
+                return RedirectToAction("index", "home");
+            }
+
+            res = new ReservierungDB();
+
+            res.Open();
+            res.AnfrageLöschen(knr);
+            res.Close();
+            return View();
+        }
+
 
         [HttpGet]
         public ActionResult Registration()
@@ -63,12 +130,16 @@ namespace Penz_Camping.Controllers
 
         public ActionResult Login()
         {
-            return View(new UserLogin());
+            return View(new UserLogin());      
         }
 
         [HttpPost]
         public ActionResult Login(UserLogin user)
         {
+                     
+            Session["isAdmin"] = Rolle.admin;
+            
+
             User userFromDB;
             reg = new RegistrationDB();
             reg.Open();
@@ -81,11 +152,24 @@ namespace Penz_Camping.Controllers
                 return View(user);
             }
 
+       
             else
             {
-                Session["loggedinUser"] = userFromDB;
+                Session["loggedInUser"] = userFromDB;
+
+                if (userFromDB.Rolle == Rolle.admin)
+                {
+                    Session["isAdmin"] = true;
+                }
+                else
+                {
+                    Session["isAdmin"] = false;
+                }
+
+
                 return RedirectToAction("index", "home");
             }
+
         }
 
 

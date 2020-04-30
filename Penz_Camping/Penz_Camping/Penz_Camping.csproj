@@ -217,6 +217,9 @@
     <Content Include="Views\Benutzerverwaltung\Login.cshtml" />
     <Content Include="Views\Benutzerverwaltung\Index.cshtml" />
     <Content Include="Views\Benutzerverwaltung\Registration.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\Reservierungsanfragen.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\AnfrageBestätigen.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\AnfrageLöschen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
