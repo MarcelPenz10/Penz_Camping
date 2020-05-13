@@ -118,6 +118,178 @@ namespace Penz_Camping.Models.DB
             }
         }
 
+        public List<User> GetAllUser()
+        {
+
+            List<User> user = new List<User>();
+
+
+            DbCommand cmdSelect = this._connection.CreateCommand();
+            cmdSelect.CommandText = "SELECT * FROM userss";
+
+            using (DbDataReader reader = cmdSelect.ExecuteReader())
+            {
+                if (!reader.HasRows)
+                {
+                    return null;
+                }
+
+                while (reader.Read())
+                {
+                    user.Add(new User
+                    {
+
+
+                        Vorname = Convert.ToString(reader["vorname"]),
+                        Nachname = Convert.ToString(reader["nachname"]),
+                        ID = Convert.ToInt32(reader["id"]),
+                        Gender = (Gender)Convert.ToInt32(reader["gender"]),
+                        Birthdate = Convert.ToDateTime(reader["birthdate"]),
+                        Rolle = (Rolle)Convert.ToInt32(reader["rolle"]),
+                        Username = Convert.ToString(reader["username"]),
+                        Password = ""
+
+                    });
+                }
+            }
+            return user;
+        }
+
+        public List<User> GetAllRegUsers()
+
+
+
+        {
+
+            List<User> user = new List<User>();
+
+
+
+            DbCommand cmdSelect = this._connection.CreateCommand();
+            cmdSelect.CommandText = "SELECT * FROM userss WHERE rolle = 1";
+
+            using (DbDataReader reader = cmdSelect.ExecuteReader())
+            {
+                if (!reader.HasRows)
+                {
+                    return null;
+                }
+
+                while (reader.Read())
+                {
+                    user.Add(new User
+                    {
+
+
+                        Vorname = Convert.ToString(reader["vorname"]),
+                        Nachname = Convert.ToString(reader["nachname"]),
+                        ID = Convert.ToInt32(reader["id"]),
+                        Gender = (Gender)Convert.ToInt32(reader["gender"]),
+                        Birthdate = Convert.ToDateTime(reader["birthdate"]),
+                        Rolle = (Rolle)Convert.ToInt32(reader["rolle"]),
+                        Username = Convert.ToString(reader["username"]),
+                        Password = ""
+
+                    });
+                }
+            }
+            return user;
+        }
+
+        public User GetUser(int id)
+        {
+            DbCommand cmdSelect = this._connection.CreateCommand();
+            cmdSelect.CommandText = "SELECT * FROM userss WHERE id=@id";
+
+            DbParameter paramId = cmdSelect.CreateParameter();
+            paramId.ParameterName = "id";
+            paramId.Value = id;
+            paramId.DbType = DbType.Int32;
+
+            cmdSelect.Parameters.Add(paramId);
+
+            using (DbDataReader reader = cmdSelect.ExecuteReader())
+            {
+                if (!reader.HasRows)
+                {
+                    return null;
+                }
+
+                reader.Read();
+                return new User
+                {
+                    ID = Convert.ToInt32(reader["id"]),
+                    Vorname = Convert.ToString(reader["vorname"]),
+                    Nachname = Convert.ToString(reader["nachname"]),
+                    Birthdate = Convert.ToDateTime(reader["birthdate"]),
+                    Gender = (Gender)Convert.ToInt32(reader["gender"]),
+                    Rolle = (Rolle)Convert.ToInt32(reader["rolle"]),
+                    Username = Convert.ToString(reader["username"]),
+                    Password = ""
+                };
+
+            }
+        }
+
+        public bool LöschenUser(int id)
+        {
+            DbCommand cmdDel = this._connection.CreateCommand();
+            cmdDel.CommandText = "DELETE FROM userss WHERE id=@ID";
+
+            DbParameter paramId = cmdDel.CreateParameter();
+            paramId.ParameterName = "ID";
+            paramId.Value = id;
+            paramId.DbType = DbType.Int32;
+
+            cmdDel.Parameters.Add(paramId);
+
+            return cmdDel.ExecuteNonQuery() == 1;
+        }
+
+        public bool BenutzerdatenÄndern(int id, User neueDaten)
+        {
+            DbCommand cmdSelect = this._connection.CreateCommand();
+            cmdSelect.CommandText = "UPDATE userss SET vorname=@vorname, nachname=@nachname, birthdate=@birthdate, username=@username, password=sha2(@password, 256) WHERE id=@id";
+
+            DbParameter paramId = cmdSelect.CreateParameter();
+            paramId.ParameterName = "id";
+            paramId.Value = id;
+            paramId.DbType = DbType.Int32;
+
+            DbParameter paramVN = cmdSelect.CreateParameter();
+            paramVN.ParameterName = "vorname";
+            paramVN.Value = neueDaten.Vorname;
+            paramVN.DbType = DbType.String;
+
+            DbParameter paramNN = cmdSelect.CreateParameter();
+            paramNN.ParameterName = "nachname";
+            paramNN.Value = neueDaten.Nachname;
+            paramNN.DbType = DbType.String;
+
+            DbParameter paramBirthdate = cmdSelect.CreateParameter();
+            paramBirthdate.ParameterName = "birthdate";
+            paramBirthdate.Value = neueDaten.Birthdate;
+            paramBirthdate.DbType = DbType.DateTime;
+
+            DbParameter paramUsername = cmdSelect.CreateParameter();
+            paramUsername.ParameterName = "username";
+            paramUsername.Value = neueDaten.Username;
+            paramUsername.DbType = DbType.String;
+
+            DbParameter paramPassword = cmdSelect.CreateParameter();
+            paramPassword.ParameterName = "password";
+            paramPassword.Value = neueDaten.Password;
+            paramPassword.DbType = DbType.String;
+
+            cmdSelect.Parameters.Add(paramId);
+            cmdSelect.Parameters.Add(paramVN);
+            cmdSelect.Parameters.Add(paramNN);
+            cmdSelect.Parameters.Add(paramBirthdate);
+            cmdSelect.Parameters.Add(paramUsername);
+            cmdSelect.Parameters.Add(paramPassword);
+
+            return cmdSelect.ExecuteNonQuery() == 1;
+        }
 
     }
 }

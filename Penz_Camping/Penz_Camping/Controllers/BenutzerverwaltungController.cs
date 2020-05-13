@@ -16,33 +16,77 @@ namespace Penz_Camping.Controllers
         private IRegistrierung reg;
 
         // GET: Benutzerverwaltung
-        public ActionResult Index()
+        public ActionResult RegistrierteBenutzer()
         {
-            return View();
+            if ((Session["loggedInUser"] != null) &&(((User)Session["loggedInUser"]).Rolle == Rolle.admin))
+            {
+
+
+                List<User> users;
+
+                reg = new RegistrationDB();
+                reg.Open();
+
+                users = reg.GetAllRegUsers();
+                reg.Close();
+
+
+
+                return View(users);
+            }
+            return RedirectToAction("index", "home");
+        }
+
+        public ActionResult LöschenUser(int id)
+        {
+          
+            reg = new RegistrationDB();
+
+            reg.Open();
+
+            if (reg.LöschenUser(id))
+            {
+                reg.Close();
+                return RedirectToAction("RegistrierteBenutzer");
+            }
+            else
+            {
+                reg.Close();
+                return View("Message", new Message("Löschen", "Löschen war nicht erfolgreich"));
+            }
+         
+           
         }
 
 
         public ActionResult Reservierungsanfragen()
         {
-            List<Reservierungsanfrage> reservierungsanfragen;
-
-            res = new ReservierungDB();
-            res.Open();
-
-            reservierungsanfragen = res.GetAllRes();
-            res.Close();
-
-            List<Reservierungsanfrage> neueRes = new List<Reservierungsanfrage>();
-
-            foreach (var r in reservierungsanfragen)
+            if ((Session["isAdmin"] != null) && (((User)Session["isAdmin"]).Rolle == Rolle.admin))
             {
-                if (!r.Bearbeitet)
-                {
-                    neueRes.Add(r);
-                }
-            }
 
-            return View(neueRes);
+
+                List<Reservierungsanfrage> reservierungsanfragen;
+
+                res = new ReservierungDB();
+                res.Open();
+
+                reservierungsanfragen = res.GetAllRes();
+                res.Close();
+
+                List<Reservierungsanfrage> neueRes = new List<Reservierungsanfrage>();
+
+                foreach (var r in reservierungsanfragen)
+                {
+                    if (!r.Bearbeitet)
+                    {
+                        neueRes.Add(r);
+                    }
+                }
+
+                return View(neueRes);
+
+            }
+            return RedirectToAction("index", "home");
         }
 
        public ActionResult AnfrageBestätigen(int knr)
@@ -173,6 +217,66 @@ namespace Penz_Camping.Controllers
         }
 
 
+        public ActionResult Logout()
+        {
+            //Session löschen
+            Session["isAdmin"] = null;
+            Session["loggedInUser"] = null;
+
+            return RedirectToAction("index", "Home");
+        }
+
+        public ActionResult MyData()
+        {
+            
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("index", "home");
+            }
+
+            User u = new User();
+
+            reg = new RegistrationDB();
+
+            reg.Open();
+            u = reg.GetUser(((User)Session["loggedInUser"]).ID);
+            reg.Close();
+
+            return View(u);
+
+        }
+
+        [HttpPost]
+        public ActionResult MyData(User u)
+        {
+            if (u == null)
+            {
+                return View(u);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(u);
+            }
+
+            else
+            {
+                u.Rolle = ((User)Session["loggedInUser"]).Rolle;
+                reg = new RegistrationDB();
+                reg.Open();
+                             
+              if (reg.BenutzerdatenÄndern(u.ID, u))
+              {
+                        reg.Close();
+                    return View("Message", new Message("MyData", "Ihre Daten wurden erfolgreich bearbeitet"));
+                }          
+            }
+            return View("Message", new Message("MyData", "Ihre Bearbeitung konnte nicht erfolgreich abgespeichert werden"));
+        }
+
+
+
+
 
         private void CheckUserData(User user)
         {
@@ -208,7 +312,3 @@ namespace Penz_Camping.Controllers
 
     }
 }
-
-
-
-

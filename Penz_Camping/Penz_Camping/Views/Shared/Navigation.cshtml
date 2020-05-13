@@ -1,4 +1,4 @@
-﻿
+﻿@using Penz_Camping.Models
 
 @{
     ViewBag.Title = "Navigation";
@@ -26,11 +26,38 @@
     <li class="nav_level2">@Html.ActionLink("Login", "login", "benutzerverwaltung")</li>
     <li class="nav_level2">@Html.ActionLink("Registrierung", "registration", "benutzerverwaltung")</li>
 
-    @if(Convert.ToBoolean(Session["isAdmin"]))
+    @if (Convert.ToBoolean(Session["isAdmin"]))
     {
         <li class="nav_level2">@Html.ActionLink("Reservierungsanfragen", "reservierungsanfragen", "benutzerverwaltung")</li>
-        <li class="nav_level2">@Html.ActionLink("registrierte Benutzer", "index", "benutzerverwaltung")</li>
+        <li class="nav_level2">@Html.ActionLink("registrierte Benutzer", "registrierteBenutzer", "benutzerverwaltung")</li>
     }
+
+
+    @*@if (Session["isAdmin"] != null)
+    {
+        <span>[@Html.ActionLink("Logout", "Logout", "Benutzerverwaltung")]</span>
+
+
+        <li class="nav_level2">@Html.ActionLink("Meine Daten", "MyData", "Benutzerverwaltung")</li>
+    }*@
+
+
+    @{
+            if (Session["loggedInUser"] != null)
+            {
+                User u = ((User)Session["loggedInUser"]);
+
+
+
+                <span>@u.Vorname</span>
+                <span>[@Html.ActionLink("Logout", "Logout", "Benutzerverwaltung")]</span>
+
+
+                <li class="nav_level2">@Html.ActionLink("Meine Daten", "MyData", "Benutzerverwaltung")</li>
+
+            }
+
+        }
 
 </ul>
 

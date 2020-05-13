@@ -1,0 +1,79 @@
+﻿
+@model Penz_Camping.Models.User
+
+@{
+    ViewBag.Title = "MyData";
+}
+
+<h1>Benutzerdaten/Benutzerdaten ändern</h1>
+
+@if (Model != null)
+{
+    <form action="/Benutzerverwaltung/MyData" method="post">
+        <table class="uk-table reservierungsanfragen">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Birthdate</th>
+                    <th>neues Passwort</th>
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input class="uk-input" id="ID" name="ID"  readonly="readonly" value="@Model.ID">
+                    </td>
+                    <td>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="Username" name="Username" type="text" value="@Model.Username">
+                        </div>
+                        <span class="errorForm">
+                            @Html.ValidationMessageFor(u => u.Username)
+                        </span>
+                    </td>
+                    <td>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="Vorname" name="Vorname" type="text" value="@Model.Vorname">
+                        </div>
+                        <span class="errorForm">
+                            @Html.ValidationMessageFor(u => u.Vorname)
+                        </span>
+                    </td>
+                    <td>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="Nachname" name="Nachname" type="text" value="@Model.Nachname">
+                        </div>
+                        <span class="errorForm">
+                            @Html.ValidationMessageFor(u => u.Nachname)
+                        </span>
+                    </td>
+                    <td>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="Birthdate" name="Birthdate" type="datetime" value="@Model.Birthdate">
+                        </div>
+                        <span class="errorForm">
+                            @Html.ValidationMessageFor(u => u.Birthdate)
+                        </span>
+                    </td>
+                    <td>
+                        <div class="uk-form-controls">
+                            <input class="uk-input" id="Password" name="Password" type="password" value="@Model.Password">
+                        </div>
+                        <span class="errorForm">
+                            @Html.ValidationMessageFor(u => u.Password)
+                        </span>
+                    </td>
+                  
+                    <td>
+                        <input class="uk-button uk-button-primary" type="submit" value="Bearbeiten" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+}

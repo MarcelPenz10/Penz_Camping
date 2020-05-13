@@ -1,0 +1,62 @@
+﻿
+@model List<Penz_Camping.Models.User>
+@using Penz_Camping.Models
+
+@{
+    ViewBag.Title = "registrierteBenutzer";
+}
+
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+    table {
+        width: 100%;
+    }
+</style>
+
+<h2>Registrierte Benutzer</h2>
+
+@if ((Model != null) && (Model.Count > 0))
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Vorname</td>
+                <td>Nachname</td>
+                <td>Rolle</td>
+                <td>Username</td>
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (User u in Model)
+            {
+            <tr>
+                <td>@u.ID</td>
+                <td>@u.Vorname</td>
+                <td>@u.Nachname</td>
+                <td>@u.Rolle</td>
+                <td>@u.Username</td>
+                <td>
+                <td><a class="uk-button uk-button-default" type="button" href="/Benutzerverwaltung/LöschenUser?id=@u.ID">Löschen</a></td>
+                </td>
+            </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td> colspan="6"> registrierte Benutzer</td>
+            </tr>
+        </tfoot>
+
+    </table>
+}
+else
+{
+    <p>Keine registrierten Benutzer vorhanden</p>
+}

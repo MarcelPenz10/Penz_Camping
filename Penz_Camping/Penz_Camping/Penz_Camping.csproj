@@ -215,11 +215,12 @@
     <Content Include="Views\Campingplatz\Bilder.cshtml" />
     <Content Include="Views\Shared\Message.cshtml" />
     <Content Include="Views\Benutzerverwaltung\Login.cshtml" />
-    <Content Include="Views\Benutzerverwaltung\Index.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\RegistrierteBenutzer.cshtml" />
     <Content Include="Views\Benutzerverwaltung\Registration.cshtml" />
     <Content Include="Views\Benutzerverwaltung\Reservierungsanfragen.cshtml" />
     <Content Include="Views\Benutzerverwaltung\AnfrageBestätigen.cshtml" />
     <Content Include="Views\Benutzerverwaltung\AnfrageLöschen.cshtml" />
+    <Content Include="Views\Benutzerverwaltung\MyData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

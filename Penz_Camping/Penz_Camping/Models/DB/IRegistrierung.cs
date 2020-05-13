@@ -10,5 +10,11 @@ namespace Penz_Camping.Models.DB
     {
         bool Insert(User user);
         User Login(UserLogin user);
+        List<User> GetAllRegUsers();
+        User GetUser(int id);
+        List<User> GetAllUser();
+        bool LöschenUser(int id);
+        bool BenutzerdatenÄndern(int id, User neueDaten);
+
     }
 }
